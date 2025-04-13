@@ -1,0 +1,1422 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プラグイン方式による次世代POSシステム開発提案 | 株式会社エクストリンク様向け</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            color: #333;
+            line-height: 1.6;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #3182ce 0%, #2c5282 100%);
+        }
+        .card {
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        .feature-icon {
+            background: rgba(49, 130, 206, 0.1);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+        .timeline-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #3182ce;
+            position: absolute;
+            left: -10px;
+            top: 0;
+        }
+        .timeline-line {
+            position: absolute;
+            left: 0;
+            top: 20px;
+            bottom: 0;
+            width: 2px;
+            background-color: #e2e8f0;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- ヘッダーセクション -->
+    <header class="gradient-bg text-white py-16">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-4">次世代POSシステム開発提案</h1>
+                    <h2 class="text-2xl md:text-3xl mb-6">プラグイン方式による多業種対応システム</h2>
+                    <p class="text-xl opacity-90">株式会社エクストリンク 様向け</p>
+                </div>
+                <div class="md:w-1/3">
+                    <div class="bg-white p-6 rounded-lg shadow-lg">
+                        <h3 class="text-blue-800 font-bold text-xl mb-3">ポイント</h3>
+                        <ul class="text-gray-800 space-y-2">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                <span>プラグイン方式によるカスタマイズ</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                <span>幅広い業種への対応</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                <span>WEBのみの運用による汎用性</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                <span>さまざまなデバイスサイズに対応</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 目次 -->
+    <section class="py-10 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-8 text-center text-gray-800">目次</h2>
+            <div class="max-w-3xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <ol class="list-decimal list-inside space-y-3 text-lg">
+                            <li class="p-2 hover:bg-blue-50 rounded transition">
+                                <a href="#overview" class="text-blue-700 hover:text-blue-900">概要</a>
+                            </li>
+                            <li class="p-2 hover:bg-blue-50 rounded transition">
+                                <a href="#current-situation" class="text-blue-700 hover:text-blue-900">現状と課題</a>
+                            </li>
+                            <li class="p-2 hover:bg-blue-50 rounded transition">
+                                <a href="#vision" class="text-blue-700 hover:text-blue-900">新POSシステムのビジョン</a>
+                            </li>
+                            <li class="p-2 hover:bg-blue-50 rounded transition">
+                                <a href="#architecture" class="text-blue-700 hover:text-blue-900">提案システムのアーキテクチャ</a>
+                            </li>
+                            <li class="p-2 hover:bg-blue-50 rounded transition">
+                                <a href="#plugin-system" class="text-blue-700 hover:text-blue-900">プラグインシステムと拡張性</a>
+                            </li>
+                        </ol>
+                    </div>
+                    <div>
+                        <ol class="list-decimal list-inside space-y-3 text-lg" start="6">
+                            <li class="p-2 hover:bg-blue-50 rounded transition">
+                                <a href="#key-features" class="text-blue-700 hover:text-blue-900">主要機能と特徴</a>
+                            </li>
+                            <li class="p-2 hover:bg-blue-50 rounded transition">
+                                <a href="#industry-solutions" class="text-blue-700 hover:text-blue-900">業種別ソリューション</a>
+                            </li>
+
+                            <li class="p-2 hover:bg-blue-50 rounded transition">
+                                <a href="#benefits" class="text-blue-700 hover:text-blue-900">導入メリット</a>
+                            </li>
+                            <li class="p-2 hover:bg-blue-50 rounded transition">
+                                <a href="#conclusion" class="text-blue-700 hover:text-blue-900">まとめ</a>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 概要 -->
+    <section id="overview" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-8 text-center text-gray-800">概要</h2>
+            <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-md">
+                <p class="text-lg mb-6">
+                    本提案書は、株式会社エクストリンク様に対して、現行のE-POSシステム3やSWAなどのパッケージ型POSシステムに代わる、
+                    次世代のプラグイン方式による拡張性の高いPOSシステムの開発を提案するものです。
+                </p>
+                <p class="text-lg mb-6">
+                    現在、POSシステム市場は急速に変化しており、業種ごとに異なるニーズに柔軟に対応できるシステムが求められています。
+                    一方で、導入コストの削減や操作性の向上も重要な課題となっています。
+                </p>
+                <p class="text-lg mb-6">
+                    私たちが提案する新POSシステムは、以下の特徴を持ちます：
+                </p>
+                <ul class="list-disc list-inside space-y-2 pl-4 text-lg mb-6">
+                    <li><span class="font-semibold">プラグイン方式による高いカスタマイズ性</span> - 基本機能に業種別のプラグインを追加する形式</li>
+                    <li><span class="font-semibold">幅広い業種への対応</span> - 飲食店、美容室、クリニック、物販だけでなく、カラオケ店や漫画喫茶などにも対応</li>
+                    <li><span class="font-semibold">WEBのみの運用</span> - ローカル環境を廃止し、クラウド中心のシステム構成</li>
+                    <li><span class="font-semibold">レスポンシブデザイン</span> - さまざまなデバイスサイズに対応し、専用端末だけでなくタブレットなどでも利用可能</li>
+                </ul>
+                <p class="text-lg">
+                    本システムの開発により、エクストリンク様は顧客のニーズに合わせた柔軟なPOSソリューションを提供することが可能となり、
+                    市場シェアの拡大と顧客満足度の向上を実現できます。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 現状と課題 -->
+    <section id="current-situation" class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-8 text-center text-gray-800">現状と課題</h2>
+            <div class="max-w-5xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                    <!-- 現状 -->
+                    <div class="bg-gray-50 p-6 rounded-lg shadow">
+                        <h3 class="text-xl font-bold mb-4 text-blue-800">現状</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-dot-circle text-blue-600 mt-1 mr-3"></i>
+                                <span>E-POSシステム、SWAなどのパッケージ型POSシステムを提供</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-dot-circle text-blue-600 mt-1 mr-3"></i>
+                                <span>業種ごとに特化したシステムの提供</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-dot-circle text-blue-600 mt-1 mr-3"></i>
+                                <span>ローカル環境と連携したWEB機能の提供</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-dot-circle text-blue-600 mt-1 mr-3"></i>
+                                <span>専用POSビューワーでの表示</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-dot-circle text-blue-600 mt-1 mr-3"></i>
+                                <span>専用POS端末を前提とした仕様</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- 課題 -->
+                    <div class="bg-gray-50 p-6 rounded-lg shadow">
+                        <h3 class="text-xl font-bold mb-4 text-red-700">課題</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-exclamation-circle text-red-500 mt-1 mr-3"></i>
+                                <span>業種ごとの個別開発によるコスト増加と開発効率の低下</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-exclamation-circle text-red-500 mt-1 mr-3"></i>
+                                <span>特定の業種以外への展開が困難</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-exclamation-circle text-red-500 mt-1 mr-3"></i>
+                                <span>ローカル環境の管理コストとトラブル対応の煩雑さ</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-exclamation-circle text-red-500 mt-1 mr-3"></i>
+                                <span>小規模事業者向けの低コストソリューションの欠如</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-exclamation-circle text-red-500 mt-1 mr-3"></i>
+                                <span>機能拡張やカスタマイズの柔軟性不足</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-blue-50 p-8 rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold mb-4 text-blue-800">市場動向</h3>
+                    <p class="mb-4 text-lg">POSシステム市場は以下のような変化が起きています：</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <i class="fas fa-chart-line text-green-600 mt-1 mr-3"></i>
+                                    <span>クラウドベースのPOSシステムの需要増加</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-chart-line text-green-600 mt-1 mr-3"></i>
+                                    <span>タブレットやモバイルデバイスでの利用ニーズの高まり</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-chart-line text-green-600 mt-1 mr-3"></i>
+                                    <span>オムニチャネル対応への要望</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <i class="fas fa-chart-line text-green-600 mt-1 mr-3"></i>
+                                    <span>データ分析・活用へのニーズ拡大</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-chart-line text-green-600 mt-1 mr-3"></i>
+                                    <span>業種横断的なサービス連携の重要性</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-chart-line text-green-600 mt-1 mr-3"></i>
+                                    <span>ローコスト導入可能なシステムへの需要</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 新POSシステムのビジョン -->
+    <section id="vision" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-8 text-center text-gray-800">新POSシステムのビジョン</h2>
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-white p-8 rounded-lg shadow-md mb-10">
+                    <h3 class="text-2xl font-bold mb-6 text-blue-800">「どんな業種にも対応できる次世代POSプラットフォーム」</h3>
+                    <p class="text-lg mb-6">
+                        当社が提案する新しいPOSシステムは、現在のパッケージ型システムの制約を超え、
+                        プラグイン方式による拡張性と柔軟性を備えた次世代のプラットフォームです。
+                        先進的なPOSシステムの利点を取り入れながら、
+                        エクストリンク様の強みを活かした独自の価値提供を実現します。
+                    </p>
+                    <div class="flex flex-col md:flex-row justify-between mt-8">
+                        <div class="mb-6 md:mb-0 md:w-1/2 pr-0 md:pr-4">
+                            <h4 class="text-xl font-semibold mb-3 text-blue-700">コアコンセプト</h4>
+                            <ul class="space-y-2">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-600 mt-1 mr-2"></i>
+                                    <span><strong>フレキシブル</strong> - あらゆる業種に対応可能な柔軟性</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-600 mt-1 mr-2"></i>
+                                    <span><strong>モジュラー</strong> - 必要な機能だけを選択可能</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-600 mt-1 mr-2"></i>
+                                    <span><strong>クラウドネイティブ</strong> - WEBのみで完結</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-600 mt-1 mr-2"></i>
+                                    <span><strong>レスポンシブ</strong> - 様々なデバイスに対応</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="md:w-1/2 pl-0 md:pl-4">
+                            <h4 class="text-xl font-semibold mb-3 text-blue-700">目指す姿</h4>
+                            <ul class="space-y-2">
+                                <li class="flex items-start">
+                                    <i class="fas fa-arrow-right text-blue-600 mt-1 mr-2"></i>
+                                    <span>業種の壁を超えたPOSプラットフォーム</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-arrow-right text-blue-600 mt-1 mr-2"></i>
+                                    <span>専用端末不要のPOSソリューション</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-arrow-right text-blue-600 mt-1 mr-2"></i>
+                                    <span>顧客の成長に合わせてスケールする仕組み</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-arrow-right text-blue-600 mt-1 mr-2"></i>
+                                    <span>開発・運用コストの最適化</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- 提案システムのアーキテクチャ -->
+    <section id="architecture" class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-8 text-center text-gray-800">提案システムのアーキテクチャ</h2>
+            <div class="max-w-5xl mx-auto">
+                <!-- アーキテクチャ図 -->
+                <div class="bg-gray-50 p-8 rounded-lg shadow-md mb-10 text-center">
+                    <h3 class="text-xl font-bold mb-6 text-blue-800">システム全体アーキテクチャ</h3>
+                    <div class="border-2 border-blue-200 bg-white p-6 rounded-lg inline-block">
+                        <div class="text-center mb-6">
+                            <div class="inline-block px-4 py-2 bg-blue-600 text-white rounded-lg text-lg font-semibold">
+                                クライアント層
+                            </div>
+                            <div class="flex flex-wrap justify-center mt-3 gap-3">
+                                <div class="px-3 py-2 bg-blue-100 text-blue-800 rounded">PC ブラウザ</div>
+                                <div class="px-3 py-2 bg-blue-100 text-blue-800 rounded">タブレット</div>
+                                <div class="px-3 py-2 bg-blue-100 text-blue-800 rounded">スマートフォン</div>
+                                <div class="px-3 py-2 bg-blue-100 text-blue-800 rounded">専用POS端末</div>
+                            </div>
+                        </div>
+                        
+                        <div class="border-t-2 border-b-2 border-blue-200 py-6 mb-6">
+                            <div class="inline-block px-4 py-2 bg-blue-600 text-white rounded-lg text-lg font-semibold mb-3">
+                                アプリケーション層
+                            </div>
+                            <div class="grid grid-cols-3 gap-3 mt-3">
+                                <div class="col-span-3">
+                                    <div class="px-3 py-2 bg-green-600 text-white rounded font-semibold">
+                                        コアPOSシステム
+                                    </div>
+                                </div>
+                                <div class="col-span-3 grid grid-cols-3 gap-3 mt-2">
+                                    <div class="px-3 py-2 bg-green-100 text-green-800 rounded">基本売上管理</div>
+                                    <div class="px-3 py-2 bg-green-100 text-green-800 rounded">在庫管理</div>
+                                    <div class="px-3 py-2 bg-green-100 text-green-800 rounded">顧客管理</div>
+                                </div>
+                                <div class="col-span-3 mt-4">
+                                    <div class="px-3 py-2 bg-yellow-500 text-white rounded font-semibold">
+                                        プラグインシステム
+                                    </div>
+                                </div>
+                                <div class="px-3 py-2 bg-yellow-100 text-yellow-800 rounded">飲食店向け</div>
+                                <div class="px-3 py-2 bg-yellow-100 text-yellow-800 rounded">美容室向け</div>
+                                <div class="px-3 py-2 bg-yellow-100 text-yellow-800 rounded">クリニック向け</div>
+                                <div class="px-3 py-2 bg-yellow-100 text-yellow-800 rounded">物販向け</div>
+                                <div class="px-3 py-2 bg-yellow-100 text-yellow-800 rounded">サービス業向け</div>
+                                <div class="px-3 py-2 bg-yellow-100 text-yellow-800 rounded">エンタメ向け</div>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center">
+                            <div class="inline-block px-4 py-2 bg-blue-600 text-white rounded-lg text-lg font-semibold mb-3">
+                                インフラストラクチャ層
+                            </div>
+                            <div class="grid grid-cols-3 gap-3 mt-3">
+                                <div class="px-3 py-2 bg-purple-100 text-purple-800 rounded">クラウドサーバー</div>
+                                <div class="px-3 py-2 bg-purple-100 text-purple-800 rounded">データベース</div>
+                                <div class="px-3 py-2 bg-purple-100 text-purple-800 rounded">APIゲートウェイ</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 特徴の説明 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- 現行システムとの比較 -->
+                    <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                        <h3 class="text-xl font-bold mb-4 text-blue-800">現行システムとの比較</h3>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead>
+                                    <tr>
+                                        <th class="px-3 py-2 bg-gray-50 text-left text-sm font-medium text-gray-500">項目</th>
+                                        <th class="px-3 py-2 bg-gray-50 text-left text-sm font-medium text-gray-500">現行システム</th>
+                                        <th class="px-3 py-2 bg-gray-50 text-left text-sm font-medium text-gray-500">新システム</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200">
+                                    <tr>
+                                        <td class="px-3 py-2 text-sm text-gray-800">アーキテクチャ</td>
+                                        <td class="px-3 py-2 text-sm text-gray-800">ローカル / ローカル+WEB</td>
+                                        <td class="px-3 py-2 text-sm font-medium text-blue-700">WEBのみ（クラウド)</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-3 py-2 text-sm text-gray-800">カスタマイズ</td>
+                                        <td class="px-3 py-2 text-sm text-gray-800">パッケージ単位</td>
+                                        <td class="px-3 py-2 text-sm font-medium text-blue-700">プラグイン単位</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-3 py-2 text-sm text-gray-800">対応デバイス</td>
+                                        <td class="px-3 py-2 text-sm text-gray-800">専用端末のみ</td>
+                                        <td class="px-3 py-2 text-sm font-medium text-blue-700">多様なデバイス</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-3 py-2 text-sm text-gray-800">更新方法</td>
+                                        <td class="px-3 py-2 text-sm text-gray-800">個別更新</td>
+                                        <td class="px-3 py-2 text-sm font-medium text-blue-700">自動更新</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-3 py-2 text-sm text-gray-800">拡張性</td>
+                                        <td class="px-3 py-2 text-sm text-gray-800">限定的</td>
+                                        <td class="px-3 py-2 text-sm font-medium text-blue-700">高い</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- 技術的特徴 -->
+                    <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                        <h3 class="text-xl font-bold mb-4 text-blue-800">技術的特徴</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <div class="feature-icon text-blue-700">
+                                    <i class="fas fa-cloud"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="font-semibold text-lg">クラウドネイティブ</h4>
+                                    <p class="text-gray-700">サーバー側でデータ処理を行い、クライアントはブラウザのみで利用可能</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="feature-icon text-blue-700">
+                                    <i class="fas fa-puzzle-piece"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="font-semibold text-lg">マイクロサービス</h4>
+                                    <p class="text-gray-700">プラグインごとに独立したサービスとして実装し、柔軟な組み合わせが可能</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="feature-icon text-blue-700">
+                                    <i class="fas fa-mobile-alt"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="font-semibold text-lg">レスポンシブデザイン</h4>
+                                    <p class="text-gray-700">様々な画面サイズに最適化されたUIを自動的に提供</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="feature-icon text-blue-700">
+                                    <i class="fas fa-plug"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="font-semibold text-lg">APIファースト</h4>
+                                    <p class="text-gray-700">全機能をAPI経由で利用可能とし、サードパーティとの連携を容易に</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- プラグインシステムと拡張性 -->
+    <section id="plugin-system" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-8 text-center text-gray-800">プラグインシステムと拡張性</h2>
+            <div class="max-w-5xl mx-auto">
+                <div class="bg-white p-8 rounded-lg shadow-md mb-10">
+                    <h3 class="text-xl font-bold mb-6 text-blue-800">プラグインシステムの概要</h3>
+                    <p class="text-lg mb-6">
+                        新POSシステムの中核となるのがプラグインシステムです。基本機能を提供するコアシステムに対して、
+                        業種や用途に応じた機能をプラグインとして追加できる仕組みを実現します。
+                        これにより、顧客のニーズに合わせたカスタマイズを低コストで素早く提供できます。
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                        <div class="p-4 border border-blue-200 rounded-lg bg-blue-50">
+                            <h4 class="font-semibold text-lg mb-2 text-blue-700">コアシステム</h4>
+                            <p class="text-gray-700">
+                                基本的なPOS機能を提供する中核システム。レジ機能、売上管理、販売管理などの共通機能を含む。
+                            </p>
+                        </div>
+                        <div class="p-4 border border-green-200 rounded-lg bg-green-50">
+                            <h4 class="font-semibold text-lg mb-2 text-green-700">プラグイン</h4>
+                            <p class="text-gray-700">
+                                業種や用途に特化した機能を提供する拡張モジュール。コアシステムに接続して機能を追加。
+                            </p>
+                        </div>
+                        <div class="p-4 border border-purple-200 rounded-lg bg-purple-50">
+                            <h4 class="font-semibold text-lg mb-2 text-purple-700">API連携</h4>
+                            <p class="text-gray-700">
+                                外部システムとの連携を可能にするインターフェース。データ連携や機能拡張をさらに強化。
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <h4 class="font-semibold text-lg mb-3 text-blue-700">プラグインシステムの利点</h4>
+                    <ul class="space-y-2 mb-6">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-600 mt-1 mr-2"></i>
+                            <span><strong>柔軟なカスタマイズ</strong> - 必要な機能だけを選択して追加可能</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-600 mt-1 mr-2"></i>
+                            <span><strong>段階的な導入</strong> - 基本機能から始め、必要に応じて機能を追加可能</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-600 mt-1 mr-2"></i>
+                            <span><strong>開発の効率化</strong> - 共通機能の重複開発を排除し、特化機能に集中</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-600 mt-1 mr-2"></i>
+                            <span><strong>迅速な市場投入</strong> - 新業種向けの機能をプラグインとして短期間で開発可能</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- プラグイン例 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+                    <div class="card bg-white p-6">
+                        <h3 class="text-xl font-bold mb-4 text-blue-800">業種別プラグイン例</h3>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="p-3 bg-blue-50 rounded-lg text-center">
+                                <i class="fas fa-utensils text-blue-600 text-2xl mb-2"></i>
+                                <h4 class="font-semibold">飲食店</h4>
+                                <p class="text-sm text-gray-600">テーブル管理<br>オーダー管理<br>キッチンモニター</p>
+                            </div>
+                            <div class="p-3 bg-green-50 rounded-lg text-center">
+                                <i class="fas fa-cut text-green-600 text-2xl mb-2"></i>
+                                <h4 class="font-semibold">美容室・エステ</h4>
+                                <p class="text-sm text-gray-600">予約管理<br>スタッフ管理<br>コース管理</p>
+                            </div>
+                            <div class="p-3 bg-red-50 rounded-lg text-center">
+                                <i class="fas fa-clinic-medical text-red-600 text-2xl mb-2"></i>
+                                <h4 class="font-semibold">クリニック</h4>
+                                <p class="text-sm text-gray-600">患者管理<br>診療履歴<br>処方管理</p>
+                            </div>
+                            <div class="p-3 bg-yellow-50 rounded-lg text-center">
+                                <i class="fas fa-shopping-bag text-yellow-600 text-2xl mb-2"></i>
+                                <h4 class="font-semibold">物販</h4>
+                                <p class="text-sm text-gray-600">在庫最適化<br>発注管理<br>棚卸し機能</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card bg-white p-6">
+                        <h3 class="text-xl font-bold mb-4 text-blue-800">機能別プラグイン例</h3>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="p-3 bg-purple-50 rounded-lg text-center">
+                                <i class="fas fa-mobile-alt text-purple-600 text-2xl mb-2"></i>
+                                <h4 class="font-semibold">モバイルオーダー</h4>
+                                <p class="text-sm text-gray-600">スマホ注文<br>QRコード決済<br>予約連動</p>
+                            </div>
+                            <div class="p-3 bg-indigo-50 rounded-lg text-center">
+                                <i class="fas fa-user-clock text-indigo-600 text-2xl mb-2"></i>
+                                <h4 class="font-semibold">シフト・勤怠管理</h4>
+                                <p class="text-sm text-gray-600">シフト作成<br>勤怠記録<br>給与計算連携</p>
+                            </div>
+                            <div class="p-3 bg-pink-50 rounded-lg text-center">
+                                <i class="fas fa-chart-pie text-pink-600 text-2xl mb-2"></i>
+                                <h4 class="font-semibold">データ分析</h4>
+                                <p class="text-sm text-gray-600">売上分析<br>顧客分析<br>在庫分析</p>
+                            </div>
+                            <div class="p-3 bg-teal-50 rounded-lg text-center">
+                                <i class="fas fa-shopping-cart text-teal-600 text-2xl mb-2"></i>
+                                <h4 class="font-semibold">EC連携</h4>
+                                <p class="text-sm text-gray-600">在庫連携<br>顧客連携<br>オムニチャネル</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- APIシステム -->
+                <div class="bg-blue-50 p-8 rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold mb-4 text-blue-800">API連携による拡張性</h3>
+                    <p class="mb-6 text-lg">
+                        新POSシステムは強力なAPI連携機能を実装します。
+                        これにより外部システムとの連携が容易になり、エコシステムの拡大が可能となります。
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-semibold text-lg mb-3 text-blue-700">APIの主な機能</h4>
+                            <ul class="space-y-2">
+                                <li class="flex items-start">
+                                    <i class="fas fa-sync-alt text-blue-600 mt-1 mr-2"></i>
+                                    <span>データの更新（登録/更新/削除）</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-database text-blue-600 mt-1 mr-2"></i>
+                                    <span>データの参照（各種情報の取得）</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-paper-plane text-blue-600 mt-1 mr-2"></i>
+                                    <span>データの送信（PUSH機能）</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-plug text-blue-600 mt-1 mr-2"></i>
+                                    <span>イベントトリガー機能</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-lg mb-3 text-blue-700">連携例</h4>
+                            <ul class="space-y-2">
+                                <li class="flex items-start">
+                                    <i class="fas fa-calculator text-green-600 mt-1 mr-2"></i>
+                                    <span>会計システム連携</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-shipping-fast text-green-600 mt-1 mr-2"></i>
+                                    <span>物流システム連携</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-envelope text-green-600 mt-1 mr-2"></i>
+                                    <span>メール配信システム連携</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-store text-green-600 mt-1 mr-2"></i>
+                                    <span>ECサイト連携</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 主要機能と特徴 -->
+    <section id="key-features" class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-8 text-center text-gray-800">主要機能と特徴</h2>
+            <div class="max-w-5xl mx-auto">
+                <!-- コア機能 -->
+                <div class="bg-gray-50 p-8 rounded-lg shadow-md mb-10">
+                    <h3 class="text-xl font-bold mb-6 text-blue-800">コアPOSシステム機能</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="card bg-white p-5">
+                            <div class="feature-icon text-blue-700 mx-auto">
+                                <i class="fas fa-cash-register"></i>
+                            </div>
+                            <h4 class="font-semibold text-center text-lg mb-2">レジ・決済機能</h4>
+                            <ul class="space-y-1 text-sm">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-600 mt-1 mr-1 text-xs"></i>
+                                    <span>多様な決済手段対応</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-600 mt-1 mr-1 text-xs"></i>
+                                    <span>複数税率対応</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-600 mt-1 mr-1 text-xs"></i>
+                                    <span>割引・クーポン機能</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-600 mt-1 mr-1 text-xs"></i>
+                                    <span>レシート自動発行</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card bg-white p-5">
+                            <div class="feature-icon text-blue-700 mx-auto">
+                                <i class="fas fa-boxes"></i>
+                            </div>
+                            <h4 class="font-semibold text-center text-lg mb-2">販売管理機能</h4>
+                            <ul class="space-y-1 text-sm">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-600 mt-1 mr-1 text-xs"></i>
+                                    <span>商品管理</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-600 mt-1 mr-1 text-xs"></i>
+                                    <span>税率設定</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-600 mt-1 mr-1 text-xs"></i>
+                                    <span>金種登録</span>
+                                </li>
+                                
+                            </ul>
+                        </div>
+                        <div class="card bg-white p-5">
+                            <div class="feature-icon text-blue-700 mx-auto">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h4 class="font-semibold text-center text-lg mb-2">顧客管理機能</h4>
+                            <ul class="space-y-1 text-sm">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-600 mt-1 mr-1 text-xs"></i>
+                                    <span>顧客データベース</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-600 mt-1 mr-1 text-xs"></i>
+                                    <span>購入履歴管理</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-600 mt-1 mr-1 text-xs"></i>
+                                    <span>ポイント・会員管理</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-600 mt-1 mr-1 text-xs"></i>
+                                    <span>顧客分析機能</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+                        <div class="card bg-white p-5">
+                            <div class="feature-icon text-blue-700 mx-auto">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h4 class="font-semibold text-center text-lg mb-2">売上分析機能</h4>
+                            <ul class="space-y-1 text-sm">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-600 mt-1 mr-1 text-xs"></i>
+                                    <span>多角的な売上分析</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-600 mt-1 mr-1 text-xs"></i>
+                                    <span>時間帯・曜日別分析</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-600 mt-1 mr-1 text-xs"></i>
+                                    <span>ABC分析</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-600 mt-1 mr-1 text-xs"></i>
+                                    <span>レポート自動生成</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card bg-white p-5">
+                            <div class="feature-icon text-blue-700 mx-auto">
+                                <i class="fas fa-store"></i>
+                            </div>
+                            <h4 class="font-semibold text-center text-lg mb-2">店舗管理機能</h4>
+                            <ul class="space-y-1 text-sm">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-600 mt-1 mr-1 text-xs"></i>
+                                    <span>複数店舗一元管理</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-600 mt-1 mr-1 text-xs"></i>
+                                    <span>店舗間在庫移動</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-600 mt-1 mr-1 text-xs"></i>
+                                    <span>店舗別実績管理</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-600 mt-1 mr-1 text-xs"></i>
+                                    <span>権限管理</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card bg-white p-5">
+                            <div class="feature-icon text-blue-700 mx-auto">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h4 class="font-semibold text-center text-lg mb-2">セキュリティ機能</h4>
+                            <ul class="space-y-1 text-sm">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-600 mt-1 mr-1 text-xs"></i>
+                                    <span>多要素認証</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-600 mt-1 mr-1 text-xs"></i>
+                                    <span>権限管理</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-600 mt-1 mr-1 text-xs"></i>
+                                    <span>暗号化通信</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-600 mt-1 mr-1 text-xs"></i>
+                                    <span>監査ログ</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- システムの特徴 -->
+                <div class="bg-white p-8 border border-gray-200 rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold mb-6 text-blue-800">システムの主な特徴</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <ul class="space-y-4">
+                                <li class="flex items-start">
+                                    <div class="flex-shrink-0 mt-1">
+                                        <span class="flex items-center justify-center h-8 w-8 rounded-full bg-blue-100 text-blue-600">
+                                            <i class="fas fa-laptop"></i>
+                                        </span>
+                                    </div>
+                                    <div class="ml-4">
+                                        <h4 class="font-semibold">WEBベースの運用</h4>
+                                        <p class="text-gray-700">ローカル環境を必要とせず、ブラウザのみで全機能を利用可能。インターネット環境があればどこからでもアクセス可能。</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="flex-shrink-0 mt-1">
+                                        <span class="flex items-center justify-center h-8 w-8 rounded-full bg-blue-100 text-blue-600">
+                                            <i class="fas fa-tablet-alt"></i>
+                                        </span>
+                                    </div>
+                                    <div class="ml-4">
+                                        <h4 class="font-semibold">マルチデバイス対応</h4>
+                                        <p class="text-gray-700">PC、タブレット、スマートフォンなど様々なデバイスに対応し、画面サイズに最適化された表示を提供。</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="flex-shrink-0 mt-1">
+                                        <span class="flex items-center justify-center h-8 w-8 rounded-full bg-blue-100 text-blue-600">
+                                            <i class="fas fa-plug"></i>
+                                        </span>
+                                    </div>
+                                    <div class="ml-4">
+                                        <h4 class="font-semibold">プラグイン方式</h4>
+                                        <p class="text-gray-700">必要な機能だけを選択してカスタマイズできるプラグイン方式により、コスト効率と使いやすさを両立。</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <ul class="space-y-4">
+                                <li class="flex items-start">
+                                    <div class="flex-shrink-0 mt-1">
+                                        <span class="flex items-center justify-center h-8 w-8 rounded-full bg-blue-100 text-blue-600">
+                                            <i class="fas fa-sync-alt"></i>
+                                        </span>
+                                    </div>
+                                    <div class="ml-4">
+                                        <h4 class="font-semibold">リアルタイム同期</h4>
+                                        <p class="text-gray-700">複数店舗や複数デバイス間でのデータをリアルタイムに同期し、常に最新の情報を反映。</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="flex-shrink-0 mt-1">
+                                        <span class="flex items-center justify-center h-8 w-8 rounded-full bg-blue-100 text-blue-600">
+                                            <i class="fas fa-code"></i>
+                                        </span>
+                                    </div>
+                                    <div class="ml-4">
+                                        <h4 class="font-semibold">API連携</h4>
+                                        <p class="text-gray-700">外部システムとの連携を容易にするAPIを標準提供し、既存システムとの統合や拡張を実現。</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="flex-shrink-0 mt-1">
+                                        <span class="flex items-center justify-center h-8 w-8 rounded-full bg-blue-100 text-blue-600">
+                                            <i class="fas fa-lock"></i>
+                                        </span>
+                                    </div>
+                                    
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 業種別ソリューション -->
+    <section id="industry-solutions" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-8 text-center text-gray-800">業種別ソリューション</h2>
+            <div class="max-w-5xl mx-auto">
+                <p class="text-lg text-center mb-10">
+                    新POSシステムは、様々な業種に対応したプラグインにより、業種固有のニーズに応えます。
+                    以下に代表的な業種向けソリューションをご紹介します。
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+                    <!-- 飲食店向け -->
+                    <div class="card bg-white p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+                                <i class="fas fa-utensils text-blue-700 text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-blue-800">飲食店向けソリューション</h3>
+                        </div>
+                        <p class="mb-4 text-gray-700">
+                            テーブル管理からオーダー管理、キッチンとの連携まで包括的に対応するPOSシステム。
+                            客席回転率の向上と効率的なオペレーションを実現します。
+                        </p>
+                        <h4 class="font-semibold text-lg mb-2 text-blue-700">主なプラグイン</h4>
+                        <ul class="grid grid-cols-2 gap-2 mb-4">
+                            <li class="flex items-center p-2 bg-blue-50 rounded-lg">
+                                <i class="fas fa-check-circle text-blue-600 mr-2"></i>
+                                <span>テーブル管理</span>
+                            </li>
+                            <li class="flex items-center p-2 bg-blue-50 rounded-lg">
+                                <i class="fas fa-check-circle text-blue-600 mr-2"></i>
+                                <span>オーダー管理</span>
+                            </li>
+                            <li class="flex items-center p-2 bg-blue-50 rounded-lg">
+                                <i class="fas fa-check-circle text-blue-600 mr-2"></i>
+                                <span>キッチンモニター</span>
+                            </li>
+                            <li class="flex items-center p-2 bg-blue-50 rounded-lg">
+                                <i class="fas fa-check-circle text-blue-600 mr-2"></i>
+                                <span>モバイルオーダー</span>
+                            </li>
+                            <li class="flex items-center p-2 bg-blue-50 rounded-lg">
+                                <i class="fas fa-check-circle text-blue-600 mr-2"></i>
+                                <span>セルフオーダー</span>
+                            </li>
+                            <li class="flex items-center p-2 bg-blue-50 rounded-lg">
+                                <i class="fas fa-check-circle text-blue-600 mr-2"></i>
+                                <span>予約管理</span>
+                            </li>
+                        </ul>
+                        <div class="p-3 bg-green-50 rounded-lg">
+                            <h5 class="font-semibold mb-1">導入メリット</h5>
+                            <p class="text-sm text-gray-700">
+                                オーダーミスの削減、客席回転率の向上、スタッフの効率的な配置などが実現し、売上向上とコスト削減に貢献します。
+                                また、モバイルオーダーやセルフオーダーによる人件費削減効果も期待できます。
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- 美容室・エステ向け -->
+                    <div class="card bg-white p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center mr-4">
+                                <i class="fas fa-cut text-purple-700 text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-purple-800">美容室・エステ向けソリューション</h3>
+                        </div>
+                        <p class="mb-4 text-gray-700">
+                            予約管理、顧客管理、施術履歴など美容業界特有のニーズに対応。
+                            スタッフごとの売上管理や顧客の来店サイクル分析なども可能です。
+                        </p>
+                        <h4 class="font-semibold text-lg mb-2 text-purple-700">主なプラグイン</h4>
+                        <ul class="grid grid-cols-2 gap-2 mb-4">
+                            <li class="flex items-center p-2 bg-purple-50 rounded-lg">
+                                <i class="fas fa-check-circle text-purple-600 mr-2"></i>
+                                <span>予約管理</span>
+                            </li>
+                            <li class="flex items-center p-2 bg-purple-50 rounded-lg">
+                                <i class="fas fa-check-circle text-purple-600 mr-2"></i>
+                                <span>スタッフ管理</span>
+                            </li>
+                            <li class="flex items-center p-2 bg-purple-50 rounded-lg">
+                                <i class="fas fa-check-circle text-purple-600 mr-2"></i>
+                                <span>会員管理</span>
+                            </li>
+                            <li class="flex items-center p-2 bg-purple-50 rounded-lg">
+                                <i class="fas fa-check-circle text-purple-600 mr-2"></i>
+                                <span>施術履歴</span>
+                            </li>
+                            <li class="flex items-center p-2 bg-purple-50 rounded-lg">
+                                <i class="fas fa-check-circle text-purple-600 mr-2"></i>
+                                <span>ビューティーパレット</span>
+                            </li>
+                            <li class="flex items-center p-2 bg-purple-50 rounded-lg">
+                                <i class="fas fa-check-circle text-purple-600 mr-2"></i>
+                                <span>リピート分析</span>
+                            </li>
+                        </ul>
+                        <div class="p-3 bg-green-50 rounded-lg">
+                            <h5 class="font-semibold mb-1">導入メリット</h5>
+                            <p class="text-sm text-gray-700">
+                                顧客の施術履歴や来店サイクルを分析し、効果的な販促活動が可能になります。
+                                スタッフごとの実績管理や顧客の担当者管理により、サービス品質の向上とリピート率の向上が期待できます。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+                    <!-- 物販向け -->
+                    <div class="card bg-white p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-yellow-100 flex items-center justify-center mr-4">
+                                <i class="fas fa-shopping-bag text-yellow-700 text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-yellow-800">物販向けソリューション</h3>
+                        </div>
+                        <p class="mb-4 text-gray-700">
+                            在庫管理、発注管理、棚卸しなど小売店に必要な機能を網羅。
+                            EC連携によるオムニチャネル対応も実現します。
+                        </p>
+                        <h4 class="font-semibold text-lg mb-2 text-yellow-700">主なプラグイン</h4>
+                        <ul class="grid grid-cols-2 gap-2 mb-4">
+                            <li class="flex items-center p-2 bg-yellow-50 rounded-lg">
+                                <i class="fas fa-check-circle text-yellow-600 mr-2"></i>
+                                <span>在庫最適化</span>
+                            </li>
+                            <li class="flex items-center p-2 bg-yellow-50 rounded-lg">
+                                <i class="fas fa-check-circle text-yellow-600 mr-2"></i>
+                                <span>発注管理</span>
+                            </li>
+                            <li class="flex items-center p-2 bg-yellow-50 rounded-lg">
+                                <i class="fas fa-check-circle text-yellow-600 mr-2"></i>
+                                <span>棚卸し管理</span>
+                            </li>
+                            <li class="flex items-center p-2 bg-yellow-50 rounded-lg">
+                                <i class="fas fa-check-circle text-yellow-600 mr-2"></i>
+                                <span>EC連携</span>
+                            </li>
+                            <li class="flex items-center p-2 bg-yellow-50 rounded-lg">
+                                <i class="fas fa-check-circle text-yellow-600 mr-2"></i>
+                                <span>バーコード管理</span>
+                            </li>
+                            <li class="flex items-center p-2 bg-yellow-50 rounded-lg">
+                                <i class="fas fa-check-circle text-yellow-600 mr-2"></i>
+                                <span>顧客ポイント</span>
+                            </li>
+                        </ul>
+                        <div class="p-3 bg-green-50 rounded-lg">
+                            <h5 class="font-semibold mb-1">導入メリット</h5>
+                            <p class="text-sm text-gray-700">
+                                在庫管理の効率化による機会損失の削減と過剰在庫の防止を実現。
+                                EC連携により実店舗とオンラインショップの在庫・顧客情報を一元管理でき、
+                                シームレスな顧客体験を提供できます。
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- クリニック向け -->
+                    <div class="card bg-white p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center mr-4">
+                                <i class="fas fa-clinic-medical text-red-700 text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-red-800">クリニック向けソリューション</h3>
+                        </div>
+                        <p class="mb-4 text-gray-700">
+                            患者管理、予約管理、診療履歴など医療機関のニーズに対応。
+                            会計処理の効率化と患者サービスの向上を実現します。
+                        </p>
+                        <h4 class="font-semibold text-lg mb-2 text-red-700">主なプラグイン</h4>
+                        <ul class="grid grid-cols-2 gap-2 mb-4">
+                            <li class="flex items-center p-2 bg-red-50 rounded-lg">
+                                <i class="fas fa-check-circle text-red-600 mr-2"></i>
+                                <span>患者管理</span>
+                            </li>
+                            <li class="flex items-center p-2 bg-red-50 rounded-lg">
+                                <i class="fas fa-check-circle text-red-600 mr-2"></i>
+                                <span>予約管理</span>
+                            </li>
+                            <li class="flex items-center p-2 bg-red-50 rounded-lg">
+                                <i class="fas fa-check-circle text-red-600 mr-2"></i>
+                                <span>診療履歴</span>
+                            </li>
+                            <li class="flex items-center p-2 bg-red-50 rounded-lg">
+                                <i class="fas fa-check-circle text-red-600 mr-2"></i>
+                                <span>会計処理</span>
+                            </li>
+                            <li class="flex items-center p-2 bg-red-50 rounded-lg">
+                                <i class="fas fa-check-circle text-red-600 mr-2"></i>
+                                <span>処方管理</span>
+                            </li>
+                            <li class="flex items-center p-2 bg-red-50 rounded-lg">
+                                <i class="fas fa-check-circle text-red-600 mr-2"></i>
+                                <span>在庫管理</span>
+                            </li>
+                        </ul>
+                        <div class="p-3 bg-green-50 rounded-lg">
+                            <h5 class="font-semibold mb-1">導入メリット</h5>
+                            <p class="text-sm text-gray-700">
+                                診療から会計までの一連の流れをシステム化することで、待ち時間の短縮と業務効率化を実現。
+                                患者情報の一元管理により、質の高い医療サービスの提供が可能になります。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- その他の業種 -->
+                <div class="bg-blue-50 p-8 rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold mb-4 text-blue-800">その他の業種別プラグイン</h3>
+                    <p class="mb-6">
+                        上記以外にも、様々な業種に対応したプラグインを提供し、それぞれの業態に最適化されたPOSシステムを構築できます。
+                    </p>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="p-4 bg-white rounded-lg text-center">
+                            <i class="fas fa-music text-indigo-600 text-2xl mb-2"></i>
+                            <h4 class="font-semibold">カラオケ店</h4>
+                            <p class="text-sm text-gray-600">ルーム管理、飲食オーダー、会員管理</p>
+                        </div>
+                        <div class="p-4 bg-white rounded-lg text-center">
+                            <i class="fas fa-book-open text-indigo-600 text-2xl mb-2"></i>
+                            <h4 class="font-semibold">漫画喫茶</h4>
+                            <p class="text-sm text-gray-600">席管理、時間課金、飲食管理</p>
+                        </div>
+                        <div class="p-4 bg-white rounded-lg text-center">
+                            <i class="fas fa-hotel text-indigo-600 text-2xl mb-2"></i>
+                            <h4 class="font-semibold">宿泊施設</h4>
+                            <p class="text-sm text-gray-600">予約管理、ルームチャージ、付帯サービス</p>
+                        </div>
+                        <div class="p-4 bg-white rounded-lg text-center">
+                            <i class="fas fa-dumbbell text-indigo-600 text-2xl mb-2"></i>
+                            <h4 class="font-semibold">フィットネス</h4>
+                            <p class="text-sm text-gray-600">会員管理、利用履歴、予約システム</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+
+    <!-- 導入メリット -->
+    <section id="benefits" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-8 text-center text-gray-800">導入メリット</h2>
+            <div class="max-w-5xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                    <!-- エクストリンク様のメリット -->
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-bold mb-4 text-blue-800">エクストリンク様のメリット</h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <i class="fas fa-chart-line text-green-600 text-lg mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-semibold text-lg">市場シェアの拡大</h4>
+                                    <p class="text-gray-700">
+                                        業種を限定しない柔軟なシステムにより、新たな市場へのアプローチが可能になります。カラオケ店や漫画喫茶など従来対応していなかった業種への展開ができます。
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-code-branch text-green-600 text-lg mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-semibold text-lg">開発効率の向上</h4>
+                                    <p class="text-gray-700">
+                                        コアシステムとプラグインの分離により、業種ごとの個別開発からの脱却を実現。共通機能の重複開発を避け、効率的なリソース活用が可能になります。
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-sync-alt text-green-600 text-lg mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-semibold text-lg">継続的な収益モデル</h4>
+                                    <p class="text-gray-700">
+                                        初期導入だけでなく、プラグイン単位での追加販売や月額利用料によるサブスクリプションモデルの構築が可能です。顧客の成長に合わせた段階的な提案ができます。
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-server text-green-600 text-lg mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-semibold text-lg">運用コストの削減</h4>
+                                    <p class="text-gray-700">
+                                        ローカル環境廃止によるサポートコストの削減と、WEBのみの運用による一元管理が実現します。トラブル対応の効率化やアップデートの簡素化も可能です。
+                                    </p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- エンドユーザー様のメリット -->
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-bold mb-4 text-blue-800">エンドユーザー様のメリット</h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <i class="fas fa-coins text-green-600 text-lg mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-semibold text-lg">導入コストの最適化</h4>
+                                    <p class="text-gray-700">
+                                        必要な機能だけを選択できるプラグイン方式により、ビジネス規模や予算に合わせた最適な構成が可能。専用端末不要でタブレットなど既存デバイスでの利用も可能です。
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-expand-arrows-alt text-green-600 text-lg mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-semibold text-lg">ビジネス成長への柔軟な対応</h4>
+                                    <p class="text-gray-700">
+                                        ビジネスの成長に合わせて必要な機能を追加できるスケーラビリティを実現。小規模店舗から多店舗展開まで、成長過程に合わせた拡張ができます。
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-laptop text-green-600 text-lg mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-semibold text-lg">利便性の向上</h4>
+                                    <p class="text-gray-700">
+                                        様々なデバイスからアクセス可能なWEBベースのシステムにより、場所を選ばず店舗運営の管理が可能。リアルタイムデータ連携による迅速な経営判断を支援します。
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-plug text-green-600 text-lg mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-semibold text-lg">他システムとの連携</h4>
+                                    <p class="text-gray-700">
+                                        強力なAPI機能により、会計システムやECサイト、顧客管理システムなど、既存システムとの連携が容易。データの二重入力や管理の煩雑さを解消します。
+                                    </p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- 導入効果 -->
+                <div class="bg-blue-50 p-8 rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold mb-6 text-blue-800">想定される導入効果</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-white p-5 rounded-lg shadow">
+                            <div class="text-center mb-4">
+                                <span class="inline-block p-3 rounded-full bg-green-100">
+                                    <i class="fas fa-dollar-sign text-2xl text-green-600"></i>
+                                </span>
+                                <h4 class="font-bold text-lg mt-2">売上向上</h4>
+                            </div>
+                            <ul class="space-y-2 text-sm">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-600 mt-1 mr-2"></i>
+                                    <span>新規市場への参入による顧客層拡大</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-600 mt-1 mr-2"></i>
+                                    <span>既存顧客へのアップセル機会の創出</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-600 mt-1 mr-2"></i>
+                                    <span>継続的な収益モデルの確立</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="bg-white p-5 rounded-lg shadow">
+                            <div class="text-center mb-4">
+                                <span class="inline-block p-3 rounded-full bg-blue-100">
+                                    <i class="fas fa-cut text-2xl text-blue-600"></i>
+                                </span>
+                                <h4 class="font-bold text-lg mt-2">コスト削減</h4>
+                            </div>
+                            <ul class="space-y-2 text-sm">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-600 mt-1 mr-2"></i>
+                                    <span>開発リソースの最適化</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-600 mt-1 mr-2"></i>
+                                    <span>サポート・運用コストの削減</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-600 mt-1 mr-2"></i>
+                                    <span>専用ハードウェアコストの削減</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="bg-white p-5 rounded-lg shadow">
+                            <div class="text-center mb-4">
+                                <span class="inline-block p-3 rounded-full bg-purple-100">
+                                    <i class="fas fa-rocket text-2xl text-purple-600"></i>
+                                </span>
+                                <h4 class="font-bold text-lg mt-2">競争優位性</h4>
+                            </div>
+                            <ul class="space-y-2 text-sm">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-600 mt-1 mr-2"></i>
+                                    <span>業界最先端のプラグイン技術</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-600 mt-1 mr-2"></i>
+                                    <span>幅広い業種への対応力</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-600 mt-1 mr-2"></i>
+                                    <span>ニーズに応じた柔軟な提案力</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- まとめ -->
+    <section id="conclusion" class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-8 text-center text-gray-800">まとめ</h2>
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-gray-50 p-8 rounded-lg shadow-md mb-12">
+                    <h3 class="text-xl font-bold mb-6 text-blue-800">提案のポイント</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 mt-1">
+                                <span class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-100 text-blue-600 text-xl">
+                                    1
+                                </span>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="font-semibold text-lg">プラグイン方式による高い拡張性</h4>
+                                <p class="text-gray-700">
+                                    基本機能を提供するコアシステムに、業種や用途に応じたプラグインを追加する形で、
+                                    様々な業種・業態に対応できる柔軟なPOSシステムを実現します。
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 mt-1">
+                                <span class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-100 text-blue-600 text-xl">
+                                    2
+                                </span>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="font-semibold text-lg">WEBベースの運用による利便性向上</h4>
+                                <p class="text-gray-700">
+                                    現行のローカル環境やPOSビューワーを廃止し、WEBブラウザのみで利用できるシステムにすることで、
+                                    様々なデバイスからのアクセスを可能にし、導入・運用コストを削減します。
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 mt-1">
+                                <span class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-100 text-blue-600 text-xl">
+                                    3
+                                </span>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="font-semibold text-lg">業種横断的な対応力</h4>
+                                <p class="text-gray-700">
+                                    飲食店、美容室・エステ、クリニック、物販に加え、カラオケ店や漫画喫茶などの
+                                    幅広い業種に対応できるシステムを構築し、市場シェアの拡大を図ります。
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 mt-1">
+                                <span class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-100 text-blue-600 text-xl">
+                                    4
+                                </span>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="font-semibold text-lg">デバイス非依存の柔軟性</h4>
+                                <p class="text-gray-700">
+                                    専用POS端末だけでなく、タブレットやPC等の汎用デバイスでも利用可能なシステムにすることで、
+                                    小規模店舗や予算に制約のある顧客にも提案可能な柔軟なソリューションを実現します。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 次のステップ -->
+                <div class="bg-blue-600 text-white p-8 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-bold mb-6 text-center">次のステップ</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="p-4 bg-white bg-opacity-10 rounded-lg text-center backdrop-filter backdrop-blur-sm">
+                            <i class="fas fa-comments text-3xl mb-3"></i>
+                            <h4 class="font-semibold text-lg mb-2">詳細な要件定義</h4>
+                            <p class="text-sm text-white text-opacity-90">
+                                エクストリンク様との詳細な要件ヒアリングと仕様の確定
+                            </p>
+                        </div>
+                        <div class="p-4 bg-white bg-opacity-10 rounded-lg text-center backdrop-filter backdrop-blur-sm">
+                            <i class="fas fa-tasks text-3xl mb-3"></i>
+                            <h4 class="font-semibold text-lg mb-2">開発計画の策定</h4>
+                            <p class="text-sm text-white text-opacity-90">
+                                具体的な開発スケジュールと工数見積もりの作成
+                            </p>
+                        </div>
+                        <div class="p-4 bg-white bg-opacity-10 rounded-lg text-center backdrop-filter backdrop-blur-sm">
+                            <i class="fas fa-rocket text-3xl mb-3"></i>
+                            <h4 class="font-semibold text-lg mb-2">プロトタイプ開発</h4>
+                            <p class="text-sm text-white text-opacity-90">
+                                コアシステムのプロトタイプ開発と検証
+                            </p>
+                        </div>
+                    </div>
+                    <div class="text-center mt-8">
+                        <p class="text-lg">
+                            本提案についてのご質問やご要望がございましたら、お気軽にお問い合わせください。
+                            貴社のビジネス発展に貢献できるシステム開発を共に進めてまいりたいと考えております。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- フッター -->
+    <footer class="py-8 bg-gray-800 text-white">
+        <div class="container mx-auto px-6 text-center">
+            <p class="mb-4">
+                株式会社エクストリンク様向け<br>
+                次世代POSシステム開発提案資料
+            </p>
+            
+            <p class="mt-4 text-sm">
+                作成日: 2025年4月14日
+            </p>
+        </div>
+    </footer>
+</body>
+</html>

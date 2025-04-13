@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>エクストリンク新POSシステム開発提案</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #f8f9fa;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .gradient-overlay {
+            background: linear-gradient(135deg, rgba(72, 126, 176, 0.05) 0%, rgba(0, 71, 138, 0.1) 100%);
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 0;
+        }
+        .slide-content {
+            position: relative;
+            z-index: 1;
+            height: 100%;
+            padding: 60px;
+        }
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #00478A;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+        .comparison-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            gap: 40px;
+        }
+        .comparison-box {
+            flex: 1;
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        .comparison-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            column-gap: 10px;
+        }
+        .current-system {
+            border-left: 4px solid #CBD5E0;
+        }
+        .proposed-system {
+            border-left: 4px solid #4299E1;
+        }
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            left: 60px;
+            right: 60px;
+            display: flex;
+            justify-content: space-between;
+            color: #718096;
+            font-size: 0.9rem;
+        }
+        .bullet-point {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+        .bullet-icon {
+            color: #A0AEC0;
+            margin-right: 12px;
+            margin-top: 4px;
+        }
+        .highlight-icon {
+            color: #3182CE;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="gradient-overlay"></div>
+        <div class="slide-content">
+            <h1 class="section-title">現状の課題と新システムの方向性</h1>
+            
+            <div class="comparison-container">
+                <div class="comparison-box current-system">
+                    <div class="comparison-title">
+                        <i class="fas fa-history text-gray-400"></i>
+                        <span>現行のPOSシステム</span>
+                    </div>
+                    
+                    <div class="bullet-point">
+                        <i class="fas fa-square bullet-icon"></i>
+                        <div>
+                            <p class="font-semibold text-gray-700">パッケージ型システム（E-POS、SWA）</p>
+                            <p class="text-gray-600 text-sm mt-1">基本機能が固定されており、カスタマイズに制限がある</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bullet-point">
+                        <i class="fas fa-square bullet-icon"></i>
+                        <div>
+                            <p class="font-semibold text-gray-700">ローカル・WEB併用アーキテクチャ</p>
+                            <p class="text-gray-600 text-sm mt-1">システム管理が複雑で、設定変更やアップデートに手間がかかる</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bullet-point">
+                        <i class="fas fa-square bullet-icon"></i>
+                        <div>
+                            <p class="font-semibold text-gray-700">業種別に別システムが必要</p>
+                            <p class="text-gray-600 text-sm mt-1">飲食店、物販、美容室など業種ごとに異なるシステムを開発・管理</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bullet-point">
+                        <i class="fas fa-square bullet-icon"></i>
+                        <div>
+                            <p class="font-semibold text-gray-700">専用端末に依存</p>
+                            <p class="text-gray-600 text-sm mt-1">POSビューワーの画面サイズに最適化され、小規模店舗には導入コスト面で障壁に</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="comparison-box proposed-system">
+                    <div class="comparison-title">
+                        <i class="fas fa-lightbulb text-blue-500"></i>
+                        <span>新しいPOSシステムの方向性</span>
+                    </div>
+                    
+                    <div class="bullet-point">
+                        <i class="fas fa-check-circle bullet-icon highlight-icon"></i>
+                        <div>
+                            <p class="font-semibold text-gray-700">プラグイン方式のシステム設計</p>
+                            <p class="text-gray-600 text-sm mt-1">基本機能に加え、必要な機能をプラグインで追加できる柔軟な構造</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bullet-point">
+                        <i class="fas fa-check-circle bullet-icon highlight-icon"></i>
+                        <div>
+                            <p class="font-semibold text-gray-700">100% Webベースのクラウドアーキテクチャ</p>
+                            <p class="text-gray-600 text-sm mt-1">ローカル運用を廃止し、Webのみで完結する簡潔なシステム</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bullet-point">
+                        <i class="fas fa-check-circle bullet-icon highlight-icon"></i>
+                        <div>
+                            <p class="font-semibold text-gray-700">幅広い業種への対応</p>
+                            <p class="text-gray-600 text-sm mt-1">飲食、美容、クリニック、物販、カラオケ店、漫画喫茶など様々な業種に対応可能</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bullet-point">
+                        <i class="fas fa-check-circle bullet-icon highlight-icon"></i>
+                        <div>
+                            <p class="font-semibold text-gray-700">マルチデバイス対応</p>
+                            <p class="text-gray-600 text-sm mt-1">タブレットから大型ディスプレイまで様々な画面サイズに最適化し、導入コストを抑制</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-10 text-center">
+                <p class="text-lg font-medium text-blue-700">スマレジの成功事例を参考に、より柔軟で拡張性の高いシステムへ</p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div>株式会社エクストリンク 様向け提案資料</div>
+            <div>2 / 10</div>
+        </div>
+    </div>
+</body>
+</html>

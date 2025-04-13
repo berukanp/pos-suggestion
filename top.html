@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>エクストリンク新POSシステム開発提案</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #f8f9fa;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .gradient-overlay {
+            background: linear-gradient(135deg, rgba(72, 126, 176, 0.05) 0%, rgba(0, 71, 138, 0.1) 100%);
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 0;
+        }
+        .slide-content {
+            position: relative;
+            z-index: 1;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 60px;
+        }
+        .title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #00478A;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+        .subtitle {
+            font-size: 1.8rem;
+            font-weight: 500;
+            color: #4A5568;
+            margin-bottom: 2.5rem;
+            line-height: 1.4;
+        }
+        .highlight {
+            color: #2B6CB0;
+            font-weight: 600;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+        .feature-item {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+        .feature-item:hover {
+            transform: translateY(-5px);
+        }
+        .icon-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #EBF4FF;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            left: 60px;
+            right: 60px;
+            display: flex;
+            justify-content: space-between;
+            color: #718096;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="gradient-overlay"></div>
+        <div class="slide-content">
+            <div class="mb-16">
+                <h1 class="title">次世代型 拡張可能 POS システム</h1>
+                <h2 class="subtitle">プラグインで<span class="highlight">自由に機能拡張</span>する<br>マルチデバイス対応クラウドPOSの提案</h2>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="icon-circle">
+                        <i class="fas fa-puzzle-piece text-3xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800">柔軟なプラグイン設計</h3>
+                    <p class="text-gray-600">業種に合わせた機能をカスタマイズできる拡張性の高いシステム</p>
+                </div>
+                <div class="feature-item">
+                    <div class="icon-circle">
+                        <i class="fas fa-tablet-alt text-3xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800">マルチデバイス対応</h3>
+                    <p class="text-gray-600">タブレットからPCまで様々な画面サイズに最適化したレスポンシブ設計</p>
+                </div>
+                <div class="feature-item">
+                    <div class="icon-circle">
+                        <i class="fas fa-cloud text-3xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800">クラウドネイティブ</h3>
+                    <p class="text-gray-600">ローカル運用からの脱却。Webのみで完結する次世代アーキテクチャ</p>
+                </div>
+            </div>
+            
+            <div class="mt-16 text-center">
+                <p class="text-xl text-gray-700 font-medium">飲食・美容・クリニック・物販など<br>幅広い業種に対応可能なシステム構想</p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div>株式会社エクストリンク 様向け提案資料</div>
+            <div>1 / 10</div>
+        </div>
+    </div>
+</body>
+</html>

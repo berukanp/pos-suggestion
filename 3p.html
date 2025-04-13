@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>エクストリンク新POSシステム開発提案</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css">
+    <style>
+        /* 既存のスタイルはそのままに、必要な部分を修正 */
+        .architecture-container {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            margin-bottom: 50px;
+        }
+    
+        .core-module {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #EBF8FF;
+            border: 2px solid #4299E1;
+            border-radius: 10px;
+            padding: 20px;
+            width: 160px;
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 3;
+        }
+    
+        .top-plugins, .left-plugins, .right-plugins, .bottom-plugins {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+    
+        .top-plugins {
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    
+        .left-plugins {
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            flex-direction: column;
+        }
+    
+        .right-plugins {
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            flex-direction: column;
+        }
+    
+        .bottom-plugins {
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    
+        .connector {
+            position: absolute;
+            background-color: #CBD5E0;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="gradient-overlay"></div>
+        <div class="slide-content">
+            <h1 class="section-title">新システム設計のコンセプト</h1>
+            
+            <div class="architecture-container">
+                <!-- コアPOSエンジン -->
+                <div class="core-module">
+                    <i class="fas fa-cube text-blue-600 text-3xl mb-2"></i>
+                    <div class="text-lg font-bold text-blue-800">コアPOSエンジン</div>
+                    <div class="text-xs text-blue-700 mt-1">基本販売・管理機能</div>
+                </div>
+                
+                <!-- 上部プラグイン -->
+                <div class="top-plugins">
+                    <!-- 上部への接続線 -->
+                    <div class="connector" style="width: 2px; height: 90px; top: 80px; left: 50%; transform: translateX(-50%);"></div>
+                    <div class="connector" style="width: 320px; height: 2px; top: 80px; left: 50%; transform: translateX(-50%);"></div>
+                    <div class="connector" style="width: 2px; height: 40px; top: 40px; left: calc(50% - 160px);"></div>
+                    <div class="connector" style="width: 2px; height: 40px; top: 40px; left: calc(50% + 160px);"></div>
+                    
+                    <!-- 飲食店プラグイン -->
+                    <div class="plugin-module" style="top: 0; left: calc(50% - 170px);">
+                        <i class="fas fa-utensils text-orange-500 text-xl mb-1"></i>
+                        <span class="text-sm font-semibold">飲食店プラグイン</span>
+                    </div>
+                    
+                    <!-- 美容室プラグイン -->
+                    <div class="plugin-module" style="top: 0; left: calc(50% + 20px);">
+                        <i class="fas fa-cut text-purple-500 text-xl mb-1"></i>
+                        <span class="text-sm font-semibold">美容室プラグイン</span>
+                    </div>
+                </div>
+                
+                <!-- 左部プラグイン -->
+                <div class="left-plugins">
+                    <!-- 左部への接続線 -->
+                    <div class="connector" style="width: 90px; height: 2px; top: 50%; left: 150px; transform: translateY(-50%);"></div>
+                    <div class="connector" style="width: 2px; height: 200px; top: 50%; left: 150px; transform: translate(-50%, -50%);"></div>
+                    <div class="connector" style="width: 40px; height: 2px; top: calc(50% - 100px); left: 130px;"></div>
+                    <div class="connector" style="width: 40px; height: 2px; top: calc(50% + 100px); left: 130px;"></div>
+                    
+                    <!-- クリニックプラグイン -->
+                    <div class="plugin-module" style="top: calc(50% - 110px); left: 0;">
+                        <i class="fas fa-clinic-medical text-red-500 text-xl mb-1"></i>
+                        <span class="text-sm font-semibold">クリニックプラグイン</span>
+                    </div>
+                    
+                    <!-- モバイルオーダー -->
+                    <div class="plugin-module" style="top: calc(50% + 30px); left: 0;">
+                        <i class="fas fa-mobile-alt text-blue-500 text-xl mb-1"></i>
+                        <span class="text-sm font-semibold">モバイルオーダー</span>
+                    </div>
+                </div>
+                
+                <!-- 右部プラグイン -->
+                <div class="right-plugins">
+                    <!-- 右部への接続線 -->
+                    <div class="connector" style="width: 90px; height: 2px; top: 50%; right: 150px; transform: translateY(-50%);"></div>
+                    <div class="connector" style="width: 2px; height: 200px; top: 50%; right: 150px; transform: translate(50%, -50%);"></div>
+                    <div class="connector" style="width: 40px; height: 2px; top: calc(50% - 100px); right: 130px;"></div>
+                    <div class="connector" style="width: 40px; height: 2px; top: calc(50% + 100px); right: 130px;"></div>
+                    
+                    <!-- 物販プラグイン -->
+                    <div class="plugin-module" style="top: calc(50% - 110px); right: 0;">
+                        <i class="fas fa-shopping-bag text-green-500 text-xl mb-1"></i>
+                        <span class="text-sm font-semibold">物販プラグイン</span>
+                    </div>
+                    
+                    <!-- シフト管理 -->
+                    <div class="plugin-module" style="top: calc(50% + 30px); right: 0;">
+                        <i class="fas fa-user-clock text-yellow-600 text-xl mb-1"></i>
+                        <span class="text-sm font-semibold">シフト管理</span>
+                    </div>
+                </div>
+                
+                <!-- 下部プラグイン -->
+                <div class="bottom-plugins">
+                    <!-- 下部への接続線 -->
+                    <div class="connector" style="width: 2px; height: 90px; bottom: 80px; left: 50%; transform: translateX(-50%);"></div>
+                    <div class="connector" style="width: 320px; height: 2px; bottom: 80px; left: 50%; transform: translateX(-50%);"></div>
+                    <div class="connector" style="width: 2px; height: 40px; bottom: 40px; left: calc(50% - 160px);"></div>
+                    <div class="connector" style="width: 2px; height: 40px; bottom: 40px; left: calc(50% + 160px);"></div>
+                    
+                    <!-- ECサイト連携 -->
+                    <div class="plugin-module" style="bottom: 0; left: calc(50% - 170px);">
+                        <i class="fas fa-laptop text-indigo-500 text-xl mb-1"></i>
+                        <span class="text-sm font-semibold">ECサイト連携</span>
+                    </div>
+                    
+                    <!-- 勤怠管理 -->
+                    <div class="plugin-module" style="bottom: 0; left: calc(50% + 20px);">
+                        <i class="fas fa-user-tie text-gray-700 text-xl mb-1"></i>
+                        <span class="text-sm font-semibold">勤怠管理</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="key-features">
+                <h3>プラグイン方式のメリット</h3>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-check-circle"></i>
+                            <div class="feature-title">柔軟な機能拡張</div>
+                        </div>
+                        <div class="feature-desc">必要な機能のみを追加可能</div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-check-circle"></i>
+                            <div class="feature-title">多業種対応</div>
+                        </div>
+                        <div class="feature-desc">幅広い業種のニーズに対応</div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-check-circle"></i>
+                            <div class="feature-title">コスト最適化</div>
+                        </div>
+                        <div class="feature-desc">必要な機能に応じた価格設定</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div>株式会社エクストリンク 様向け提案資料</div>
+            <div>3 / 10</div>
+        </div>
+    </div>
+</body>
+</html>
