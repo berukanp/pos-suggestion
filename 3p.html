@@ -9,69 +9,164 @@
     <style>
         /* 既存のスタイルはそのままに、必要な部分を修正 */
         .architecture-container {
-            position: relative;
+            position: relative; /* 子要素のabsolute配置の基準 */
             width: 100%;
-            height: 500px;
-            margin-bottom: 50px;
+            max-width: 800px; /* コンテナの最大幅を設定 */
+            height: 600px; /* 高さを調整 */
+            margin: 50px auto; /* 中央揃え */
+            /* border: 1px solid #eee; */ /* デバッグ用の境界線をコメントアウト */
+            display: grid; /* Grid Layout を使用 */
+            grid-template-columns: 1fr auto 1fr; /* 左プラグインエリア、中央コア、右プラグインエリア */
+            grid-template-rows: auto 1fr auto; /* 上部プラグインエリア、中央、下部プラグインエリア */
+            gap: 30px; /* グリッドアイテム間のギャップを調整 */
+            align-items: center; /* アイテムを垂直方向中央に */
+            justify-items: center; /* アイテムを水平方向中央に */
         }
-    
+
         .core-module {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            /* position: absolute; を削除 */
+            /* top: 50%; left: 50%; transform: translate(-50%, -50%); を削除 */
+            grid-column: 2 / 3; /* グリッドの中央列 */
+            grid-row: 2 / 3;    /* グリッドの中央行 */
             background-color: #EBF8FF;
             border: 2px solid #4299E1;
             border-radius: 10px;
             padding: 20px;
             width: 160px;
-            height: 120px;
+            /* height: 120px; を削除 (高さはコンテンツに合わせる) */
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            z-index: 3;
+            z-index: 3; /* 他の要素より手前に */
         }
-    
-        .top-plugins, .left-plugins, .right-plugins, .bottom-plugins {
-            position: absolute;
+
+        .plugin-module { /* 個々のプラグインのスタイル */
+            background-color: #fff;
+            border: 1px solid #E2E8F0; /* Tailwind gray-200 */
+            border-radius: 8px;
+            padding: 10px 15px;
             display: flex;
-            justify-content: center;
-            gap: 20px;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            min-width: 140px; /* 最小幅調整 */
         }
-    
+
+        .plugin-group { /* プラグインをまとめるコンテナ */
+             display: flex;
+             gap: 20px;
+             justify-content: center;
+             align-items: center;
+             position: relative; /* 接続線の基準になる場合がある */
+             z-index: 2;
+        }
+
         .top-plugins {
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
+            /* position: absolute; を削除 */
+            grid-column: 1 / 4; /* 上部行全体 */
+            grid-row: 1 / 2;
+            /* top: 0; left: 50%; transform: translateX(-50%); を削除 */
+            flex-direction: row; /* 水平配置 */
         }
-    
+
         .left-plugins {
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            flex-direction: column;
+            /* position: absolute; を削除 */
+            grid-column: 1 / 2; /* 左列 */
+            grid-row: 2 / 3;    /* 中央行 */
+            /* left: 0; top: 50%; transform: translateY(-50%); を削除 */
+            flex-direction: column; /* 垂直配置 */
         }
-    
+
         .right-plugins {
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            flex-direction: column;
+            /* position: absolute; を削除 */
+            grid-column: 3 / 4; /* 右列 */
+            grid-row: 2 / 3;    /* 中央行 */
+            /* right: 0; top: 50%; transform: translateY(-50%); を削除 */
+            flex-direction: column; /* 垂直配置 */
         }
-    
+
         .bottom-plugins {
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
+            /* position: absolute; を削除 */
+            grid-column: 1 / 4; /* 下部行全体 */
+            grid-row: 3 / 4;
+            /* bottom: 0; left: 50%; transform: translateX(-50%); を削除 */
+            flex-direction: row; /* 水平配置 */
         }
-    
+
+        /* 接続線のスタイル（簡略化） */
         .connector {
             position: absolute;
-            background-color: #CBD5E0;
+            background-color: #CBD5E0; /* Tailwind gray-400 */
+            z-index: 1; /* コアやプラグインより背面に */
+        }
+        /* 既存の .connector スタイルは削除またはコメントアウト */
+        /* .connector { ... } */
+
+        /* スライド全体のスタイル（変更なし、省略） */
+        body { font-family: sans-serif; margin: 0; background-color: #f0f4f8; }
+        .slide-container {
+            max-width: 1000px;
+            margin: 20px auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            overflow: hidden;
+            position: relative;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+        }
+        .gradient-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 300px; /* グラデーションの高さ */
+            background: linear-gradient(to bottom, rgba(66, 153, 225, 0.1), transparent);
+            z-index: 0;
+        }
+        .slide-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 50px; /* フッターの高さ分空ける */
+            right: 0;
+            padding: 40px;
             z-index: 1;
+            overflow-y: auto; /* コンテンツが多い場合にスクロール */
+        }
+        .section-title {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #2C5282; /* Dark Blue */
+            margin-bottom: 30px;
+            text-align: center;
+            border-bottom: 2px solid #4299E1; /* Light Blue */
+            padding-bottom: 10px;
+        }
+        .key-features { margin-top: 60px; /* 図との間隔調整 */ }
+        .key-features h3 { font-size: 1.5rem; font-weight: bold; color: #2D3748; margin-bottom: 20px; text-align: center; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+        .feature-item { background-color: #F7FAFC; border: 1px solid #E2E8F0; border-radius: 8px; padding: 20px; text-align: center; }
+        .feature-icon { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 10px; }
+        .feature-icon i { font-size: 1.2rem; color: #48BB78; } /* Green */
+        .feature-title { font-weight: bold; color: #2D3748; font-size: 1.1rem; }
+        .feature-desc { color: #4A5568; font-size: 0.9rem; }
+        .footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 40px;
+            background-color: #EDF2F7;
+            border-top: 1px solid #E2E8F0;
+            font-size: 0.8rem;
+            color: #718096;
+            z-index: 2;
         }
     </style>
 </head>
@@ -81,97 +176,75 @@
         <div class="slide-content">
             <h1 class="section-title">新システム設計のコンセプト</h1>
             
-            <div class="architecture-container">
+            <div class="architecture-container" id="architecture-diagram">
                 <!-- コアPOSエンジン -->
-                <div class="core-module">
+                <div class="core-module" id="core-module">
                     <i class="fas fa-cube text-blue-600 text-3xl mb-2"></i>
                     <div class="text-lg font-bold text-blue-800">コアPOSエンジン</div>
                     <div class="text-xs text-blue-700 mt-1">基本販売・管理機能</div>
                 </div>
                 
                 <!-- 上部プラグイン -->
-                <div class="top-plugins">
-                    <!-- 上部への接続線 -->
-                    <div class="connector" style="width: 2px; height: 90px; top: 80px; left: 50%; transform: translateX(-50%);"></div>
-                    <div class="connector" style="width: 320px; height: 2px; top: 80px; left: 50%; transform: translateX(-50%);"></div>
-                    <div class="connector" style="width: 2px; height: 40px; top: 40px; left: calc(50% - 160px);"></div>
-                    <div class="connector" style="width: 2px; height: 40px; top: 40px; left: calc(50% + 160px);"></div>
-                    
+                <div class="top-plugins plugin-group" id="top-plugins">
                     <!-- 飲食店プラグイン -->
-                    <div class="plugin-module" style="top: 0; left: calc(50% - 170px);">
+                    <div class="plugin-module" id="plugin-restaurant">
                         <i class="fas fa-utensils text-orange-500 text-xl mb-1"></i>
                         <span class="text-sm font-semibold">飲食店プラグイン</span>
                     </div>
                     
                     <!-- 美容室プラグイン -->
-                    <div class="plugin-module" style="top: 0; left: calc(50% + 20px);">
+                    <div class="plugin-module" id="plugin-salon">
                         <i class="fas fa-cut text-purple-500 text-xl mb-1"></i>
                         <span class="text-sm font-semibold">美容室プラグイン</span>
                     </div>
                 </div>
                 
                 <!-- 左部プラグイン -->
-                <div class="left-plugins">
-                    <!-- 左部への接続線 -->
-                    <div class="connector" style="width: 90px; height: 2px; top: 50%; left: 150px; transform: translateY(-50%);"></div>
-                    <div class="connector" style="width: 2px; height: 200px; top: 50%; left: 150px; transform: translate(-50%, -50%);"></div>
-                    <div class="connector" style="width: 40px; height: 2px; top: calc(50% - 100px); left: 130px;"></div>
-                    <div class="connector" style="width: 40px; height: 2px; top: calc(50% + 100px); left: 130px;"></div>
-                    
+                <div class="left-plugins plugin-group" id="left-plugins">
                     <!-- クリニックプラグイン -->
-                    <div class="plugin-module" style="top: calc(50% - 110px); left: 0;">
+                    <div class="plugin-module" id="plugin-clinic">
                         <i class="fas fa-clinic-medical text-red-500 text-xl mb-1"></i>
                         <span class="text-sm font-semibold">クリニックプラグイン</span>
                     </div>
                     
                     <!-- モバイルオーダー -->
-                    <div class="plugin-module" style="top: calc(50% + 30px); left: 0;">
+                    <div class="plugin-module" id="plugin-mobile-order">
                         <i class="fas fa-mobile-alt text-blue-500 text-xl mb-1"></i>
                         <span class="text-sm font-semibold">モバイルオーダー</span>
                     </div>
                 </div>
                 
                 <!-- 右部プラグイン -->
-                <div class="right-plugins">
-                    <!-- 右部への接続線 -->
-                    <div class="connector" style="width: 90px; height: 2px; top: 50%; right: 150px; transform: translateY(-50%);"></div>
-                    <div class="connector" style="width: 2px; height: 200px; top: 50%; right: 150px; transform: translate(50%, -50%);"></div>
-                    <div class="connector" style="width: 40px; height: 2px; top: calc(50% - 100px); right: 130px;"></div>
-                    <div class="connector" style="width: 40px; height: 2px; top: calc(50% + 100px); right: 130px;"></div>
-                    
+                <div class="right-plugins plugin-group" id="right-plugins">
                     <!-- 物販プラグイン -->
-                    <div class="plugin-module" style="top: calc(50% - 110px); right: 0;">
+                    <div class="plugin-module" id="plugin-retail">
                         <i class="fas fa-shopping-bag text-green-500 text-xl mb-1"></i>
                         <span class="text-sm font-semibold">物販プラグイン</span>
                     </div>
                     
                     <!-- シフト管理 -->
-                    <div class="plugin-module" style="top: calc(50% + 30px); right: 0;">
+                    <div class="plugin-module" id="plugin-shift">
                         <i class="fas fa-user-clock text-yellow-600 text-xl mb-1"></i>
                         <span class="text-sm font-semibold">シフト管理</span>
                     </div>
                 </div>
                 
                 <!-- 下部プラグイン -->
-                <div class="bottom-plugins">
-                    <!-- 下部への接続線 -->
-                    <div class="connector" style="width: 2px; height: 90px; bottom: 80px; left: 50%; transform: translateX(-50%);"></div>
-                    <div class="connector" style="width: 320px; height: 2px; bottom: 80px; left: 50%; transform: translateX(-50%);"></div>
-                    <div class="connector" style="width: 2px; height: 40px; bottom: 40px; left: calc(50% - 160px);"></div>
-                    <div class="connector" style="width: 2px; height: 40px; bottom: 40px; left: calc(50% + 160px);"></div>
-                    
+                <div class="bottom-plugins plugin-group" id="bottom-plugins">
                     <!-- ECサイト連携 -->
-                    <div class="plugin-module" style="bottom: 0; left: calc(50% - 170px);">
+                    <div class="plugin-module" id="plugin-ec">
                         <i class="fas fa-laptop text-indigo-500 text-xl mb-1"></i>
                         <span class="text-sm font-semibold">ECサイト連携</span>
                     </div>
                     
                     <!-- 勤怠管理 -->
-                    <div class="plugin-module" style="bottom: 0; left: calc(50% + 20px);">
+                    <div class="plugin-module" id="plugin-attendance">
                         <i class="fas fa-user-tie text-gray-700 text-xl mb-1"></i>
                         <span class="text-sm font-semibold">勤怠管理</span>
                     </div>
                 </div>
+                <!-- 接続線を描画するためのSVG要素 -->
+                <svg id="connector-svg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none;"></svg>
             </div>
             
             <div class="key-features">
@@ -209,5 +282,76 @@
             <div>3 / 10</div>
         </div>
     </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const container = document.getElementById('architecture-diagram');
+        const coreModule = document.getElementById('core-module');
+        const svg = document.getElementById('connector-svg');
+        const pluginGroups = [
+            document.getElementById('top-plugins'),
+            document.getElementById('left-plugins'),
+            document.getElementById('right-plugins'),
+            document.getElementById('bottom-plugins')
+        ];
+
+        // 要素の中心座標を取得する関数
+        function getCenter(element) {
+            const rect = element.getBoundingClientRect();
+            const containerRect = container.getBoundingClientRect();
+            return {
+                x: rect.left + rect.width / 2 - containerRect.left,
+                y: rect.top + rect.height / 2 - containerRect.top
+            };
+        }
+
+        // 接続線を描画する関数
+        function drawConnectors() {
+            // SVGをクリア
+            svg.innerHTML = '';
+
+            const coreCenter = getCenter(coreModule);
+
+            pluginGroups.forEach(group => {
+                if (!group) return; // 要素が存在しない場合はスキップ
+
+                const groupCenter = getCenter(group);
+
+                // コアモジュールとプラグイングループの中心を結ぶ線を描画
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line.setAttribute('x1', coreCenter.x);
+                line.setAttribute('y1', coreCenter.y);
+                line.setAttribute('x2', groupCenter.x);
+                line.setAttribute('y2', groupCenter.y);
+                line.setAttribute('stroke', '#CBD5E0'); // Tailwind gray-400
+                line.setAttribute('stroke-width', '2');
+                svg.appendChild(line);
+
+                // グループ内の各プラグインへの短い接続線 (オプション)
+                // より正確な位置調整が必要な場合
+                Array.from(group.children).forEach(plugin => {
+                     if (!plugin.classList.contains('plugin-module')) return; // plugin-module のみ対象
+                    const pluginCenter = getCenter(plugin);
+                    // グループの中心からプラグインへの短い線
+                    // const pluginLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    // pluginLine.setAttribute('x1', groupCenter.x);
+                    // pluginLine.setAttribute('y1', groupCenter.y);
+                    // pluginLine.setAttribute('x2', pluginCenter.x);
+                    // pluginLine.setAttribute('y2', pluginCenter.y);
+                    // pluginLine.setAttribute('stroke', '#CBD5E0');
+                    // pluginLine.setAttribute('stroke-width', '2');
+                    // svg.appendChild(pluginLine);
+                });
+            });
+        }
+
+        // 初期描画
+        drawConnectors();
+
+        // ウィンドウリサイズ時にも再描画
+        window.addEventListener('resize', drawConnectors);
+    });
+    </script>
+
 </body>
 </html>
