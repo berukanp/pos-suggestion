@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>エクストリンク新POSシステム開発提案</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+        .slide-container {
+            width: 100%;
+            max-width: 1280px;
+            min-height: 720px;
+            margin: 20px auto;
+            position: relative;
+            overflow: hidden;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .gradient-overlay {
+            background: linear-gradient(to bottom, rgba(235, 248, 255, 0.5) 0%, transparent 50%);
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 400px;
+            z-index: 0;
+        }
+        .slide-content {
+            position: relative;
+            z-index: 1;
+            padding: 60px;
+        }
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #00478A;
+            margin-bottom: 40px;
+            line-height: 1.2;
+            text-align: left;
+            border-bottom: 3px solid #4299E1;
+            padding-bottom: 15px;
+            display: inline-block;
+        }
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            left: 60px;
+            right: 60px;
+            display: flex;
+            justify-content: space-between;
+            color: #718096;
+            font-size: 0.9rem;
+            z-index: 2;
+        }
+        .architecture-container {
+            width: 100%;
+            max-width: 900px;
+            height: 650px;
+            margin: 60px auto 40px auto;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            grid-template-rows: auto 1fr auto;
+            gap: 40px 60px;
+            align-items: center;
+            justify-items: center;
+            position: relative;
+        }
+        .core-module {
+            grid-column: 2 / 3;
+            grid-row: 2 / 3;
+            background-color: #EBF8FF;
+            border: 2px solid #4299E1;
+            border-radius: 10px;
+            padding: 25px;
+            width: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 3;
+            transition: all 0.3s ease;
+        }
+        .core-module:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 12px rgba(66, 153, 225, 0.3);
+        }
+        .plugin-group {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+        }
+        .top-plugins { grid-column: 1 / 4; grid-row: 1 / 2; flex-direction: row; }
+        .left-plugins { grid-column: 1 / 2; grid-row: 2 / 3; flex-direction: column; }
+        .right-plugins { grid-column: 3 / 4; grid-row: 2 / 3; flex-direction: column; }
+        .bottom-plugins { grid-column: 1 / 4; grid-row: 3 / 4; flex-direction: row; }
+        .plugin-module {
+            background-color: white;
+            border: 1px solid #E2E8F0;
+            border-radius: 8px;
+            padding: 15px;
+            width: 160px;
+            min-height: 90px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+        .plugin-module:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.12);
+            border-color: #63B3ED;
+        }
+        .plugin-module i {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+        .plugin-module span {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #4A5568;
+        }
+        #connector-svg line {
+            stroke: #A0AEC0;
+            stroke-width: 2;
+            transition: stroke 0.3s ease;
+        }
+        .key-features {
+            background-color: rgba(247, 250, 252, 0.7);
+            border-radius: 8px;
+            padding: 30px;
+            margin-top: 60px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            border: 1px solid #E2E8F0;
+        }
+        .key-features h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2D3748;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #CBD5E0;
+            text-align: left;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 6px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            border: 1px solid #E2E8F0;
+        }
+        .feature-icon i {
+            font-size: 1.2rem;
+            color: #48BB78;
+            margin-top: 2px;
+        }
+        .feature-text .font-semibold {
+            font-size: 1.05rem;
+            color: #2D3748;
+            margin-bottom: 4px;
+        }
+        .feature-text .text-sm {
+            font-size: 0.9rem;
+            color: #4A5568;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="gradient-overlay"></div>
+        <div class="slide-content">
+            <h1 class="section-title">新システム設計のコンセプト</h1>
+            
+            <div class="architecture-container" id="architecture-diagram">
+                <!-- Core Module -->
+                <div class="core-module" id="core-module">
+                    <i class="fas fa-cube text-blue-600 text-3xl mb-2"></i>
+                    <h3 class="text-lg font-bold text-blue-800">コアPOSエンジン</h3>
+                    <p class="text-sm text-blue-700 mt-1">基本販売・管理機能</p>
+                </div>
+                
+                <!-- Top Plugin Group -->
+                <div class="plugin-group top-plugins" id="top-plugins">
+                    <div class="plugin-module" id="plugin-restaurant">
+                        <i class="fas fa-utensils text-orange-500"></i>
+                        <span>飲食店プラグイン</span>
+                    </div>
+                    
+                    <div class="plugin-module" id="plugin-salon">
+                        <i class="fas fa-cut text-purple-500"></i>
+                        <span>美容室プラグイン</span>
+                    </div>
+                </div>
+
+                <!-- Left Plugin Group -->
+                <div class="plugin-group left-plugins" id="left-plugins">
+                    <div class="plugin-module" id="plugin-clinic">
+                        <i class="fas fa-clinic-medical text-red-500"></i>
+                        <span>クリニックプラグイン</span>
+                    </div>
+                     <div class="plugin-module" id="plugin-mobile-order">
+                         <i class="fas fa-mobile-alt text-blue-500"></i>
+                         <span>モバイルオーダー</span>
+                     </div>
+                </div>
+
+                <!-- Right Plugin Group -->
+                <div class="plugin-group right-plugins" id="right-plugins">
+                    <div class="plugin-module" id="plugin-retail">
+                        <i class="fas fa-shopping-bag text-green-500"></i>
+                        <span>物販プラグイン</span>
+                    </div>
+                    <div class="plugin-module" id="plugin-shift">
+                        <i class="fas fa-user-clock text-yellow-600"></i>
+                        <span>シフト管理</span>
+                    </div>
+                </div>
+
+                <!-- Bottom Plugin Group -->
+                <div class="plugin-group bottom-plugins" id="bottom-plugins">
+                    <div class="plugin-module" id="plugin-ec">
+                        <i class="fas fa-laptop text-indigo-500"></i>
+                        <span>ECサイト連携</span>
+                    </div>
+                    <div class="plugin-module" id="plugin-attendance">
+                        <i class="fas fa-user-tie text-gray-700"></i>
+                        <span>勤怠管理</span>
+                    </div>
+                </div>
+
+                <!-- SVG for Connectors -->
+                <svg id="connector-svg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none;"></svg>
+            </div>
+            
+            <div class="key-features">
+                <h3 class="text-xl font-bold text-gray-800 mb-3">プラグイン方式のメリット</h3>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
+                        <div class="feature-text">
+                            <p class="font-semibold">柔軟な機能拡張</p>
+                            <p class="text-sm">必要な機能のみを追加可能</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
+                        <div class="feature-text">
+                            <p class="font-semibold">多業種対応</p>
+                            <p class="text-sm">幅広い業種のニーズに対応</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
+                        <div class="feature-text">
+                            <p class="font-semibold">コスト最適化</p>
+                            <p class="text-sm">必要な機能に応じた価格設定</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div>株式会社エクストリンク 様向け提案資料</div>
+            <div>3 / 10</div>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const container = document.getElementById('architecture-diagram');
+        const coreModule = document.getElementById('core-module');
+        const svg = document.getElementById('connector-svg');
+        const pluginGroups = [
+            { element: document.getElementById('top-plugins'), position: 'top' },
+            { element: document.getElementById('left-plugins'), position: 'left' },
+            { element: document.getElementById('right-plugins'), position: 'right' },
+            { element: document.getElementById('bottom-plugins'), position: 'bottom' }
+        ];
+
+        function getElementRect(element) {
+            return element.getBoundingClientRect();
+        }
+
+        function getRelativeCenter(element, containerRect) {
+            const rect = getElementRect(element);
+            return {
+                x: rect.left + rect.width / 2 - containerRect.left,
+                y: rect.top + rect.height / 2 - containerRect.top,
+                width: rect.width,
+                height: rect.height
+            };
+        }
+
+        function drawConnectors() {
+            svg.innerHTML = ''; // Clear previous lines
+            const containerRect = getElementRect(container);
+            const coreCenter = getRelativeCenter(coreModule, containerRect);
+
+            pluginGroups.forEach(groupData => {
+                const groupElement = groupData.element;
+                if (!groupElement) return;
+
+                // Get the effective center of the group (average center of its plugin modules)
+                let plugins = Array.from(groupElement.querySelectorAll('.plugin-module'));
+                if (plugins.length === 0) return; // Skip if no plugin modules
+
+                let totalX = 0, totalY = 0;
+                plugins.forEach(plugin => {
+                    const center = getRelativeCenter(plugin, containerRect);
+                    totalX += center.x;
+                    totalY += center.y;
+                });
+                const groupEffectiveCenter = {
+                    x: totalX / plugins.length,
+                    y: totalY / plugins.length
+                };
+
+                // Calculate connection points on the border of the core module
+                let coreConnectionPoint = { ...coreCenter };
+                const dx = groupEffectiveCenter.x - coreCenter.x;
+                const dy = groupEffectiveCenter.y - coreCenter.y;
+                const coreHalfWidth = coreCenter.width / 2;
+                const coreHalfHeight = coreCenter.height / 2;
+
+                // Determine which edge of the core module to connect to
+                 if (groupData.position === 'top' && Math.abs(dy) > coreHalfHeight) {
+                     coreConnectionPoint.y = coreCenter.y - coreHalfHeight - 5; // Connect slightly above top edge
+                 } else if (groupData.position === 'bottom' && Math.abs(dy) > coreHalfHeight) {
+                     coreConnectionPoint.y = coreCenter.y + coreHalfHeight + 5; // Connect slightly below bottom edge
+                 } else if (groupData.position === 'left' && Math.abs(dx) > coreHalfWidth) {
+                     coreConnectionPoint.x = coreCenter.x - coreHalfWidth - 5; // Connect slightly left of left edge
+                 } else if (groupData.position === 'right' && Math.abs(dx) > coreHalfWidth) {
+                     coreConnectionPoint.x = coreCenter.x + coreHalfWidth + 5; // Connect slightly right of right edge
+                 }
+
+                 // Calculate connection points for the plugin group (closest point on the group bounding box or individual plugin)
+                 let groupConnectionPoint = { ...groupEffectiveCenter }; // Start with group center
+                 let closestPluginCenter = null;
+                 let minDistSq = Infinity;
+
+                 plugins.forEach(plugin => {
+                    const pluginCenter = getRelativeCenter(plugin, containerRect);
+                    const distSq = (pluginCenter.x - coreConnectionPoint.x)**2 + (pluginCenter.y - coreConnectionPoint.y)**2;
+                    if (distSq < minDistSq) {
+                        minDistSq = distSq;
+                        closestPluginCenter = pluginCenter;
+                    }
+                 });
+
+                 if (closestPluginCenter) {
+                     const pluginHalfWidth = closestPluginCenter.width / 2;
+                     const pluginHalfHeight = closestPluginCenter.height / 2;
+                     // Adjust connection point to the edge of the closest plugin
+                     if (groupData.position === 'top') groupConnectionPoint.y = closestPluginCenter.y + pluginHalfHeight + 5;
+                     else if (groupData.position === 'bottom') groupConnectionPoint.y = closestPluginCenter.y - pluginHalfHeight - 5;
+                     else if (groupData.position === 'left') groupConnectionPoint.x = closestPluginCenter.x + pluginHalfWidth + 5;
+                     else if (groupData.position === 'right') groupConnectionPoint.x = closestPluginCenter.x - pluginHalfWidth - 5;
+
+                     // Ensure the line starts/ends near the group, not necessarily at the exact calculated edge point
+                     // This creates the T-junction effect sometimes seen in diagrams
+                     if (groupData.position === 'top' || groupData.position === 'bottom') {
+                         groupConnectionPoint.x = groupEffectiveCenter.x;
+                     } else {
+                         groupConnectionPoint.y = groupEffectiveCenter.y;
+                     }
+                 }
+
+
+                // Draw main line from core to group connection point
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line.setAttribute('x1', coreConnectionPoint.x);
+                line.setAttribute('y1', coreConnectionPoint.y);
+                line.setAttribute('x2', groupConnectionPoint.x);
+                line.setAttribute('y2', groupConnectionPoint.y);
+                svg.appendChild(line);
+
+                // Optional: Draw short lines from group connection point to each plugin center
+                // plugins.forEach(plugin => {
+                //     const pluginCenter = getRelativeCenter(plugin, containerRect);
+                //     const shortLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                //     shortLine.setAttribute('x1', groupConnectionPoint.x);
+                //     shortLine.setAttribute('y1', groupConnectionPoint.y);
+                //     shortLine.setAttribute('x2', pluginCenter.x);
+                //     shortLine.setAttribute('y2', pluginCenter.y);
+                //     svg.appendChild(shortLine);
+                // });
+            });
+        }
+
+        // Initial draw
+        // Use setTimeout to ensure layout is fully calculated after styles apply
+        setTimeout(drawConnectors, 100);
+
+        // Redraw on resize
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(drawConnectors, 100); // Debounce resize
+        });
+    });
+    </script>
+</body>
+</html>
